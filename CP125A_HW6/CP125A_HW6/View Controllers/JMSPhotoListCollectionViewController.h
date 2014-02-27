@@ -1,5 +1,5 @@
 //
-//  JMSViewController.h
+//  JMSPhotoListCollectionViewController.h
 //  CP125A_HW6
 //
 //  Created by Jared Sorge on 2/26/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JMSViewController : UIViewController
+@interface JMSPhotoListCollectionViewController : UICollectionViewController
 
 @end

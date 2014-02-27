@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9350438718BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9350438618BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m */; };
+		9350438D18BF0E6D00BD5F48 /* JMSPhotoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9350438C18BF0E6D00BD5F48 /* JMSPhotoData.m */; };
+		9350439018BF0E7B00BD5F48 /* JMSPhotoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9350438F18BF0E7B00BD5F48 /* JMSPhotoStore.m */; };
 		93ED596118BE3C4D008874F6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93ED596018BE3C4D008874F6 /* Foundation.framework */; };
 		93ED596318BE3C4E008874F6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93ED596218BE3C4E008874F6 /* CoreGraphics.framework */; };
 		93ED596518BE3C4E008874F6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93ED596418BE3C4E008874F6 /* UIKit.framework */; };
@@ -14,13 +17,13 @@
 		93ED596D18BE3C4E008874F6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ED596C18BE3C4E008874F6 /* main.m */; };
 		93ED597118BE3C4E008874F6 /* JMSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ED597018BE3C4E008874F6 /* JMSAppDelegate.m */; };
 		93ED597418BE3C4E008874F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93ED597218BE3C4E008874F6 /* Main.storyboard */; };
-		93ED597718BE3C4E008874F6 /* JMSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ED597618BE3C4E008874F6 /* JMSViewController.m */; };
 		93ED597918BE3C4E008874F6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93ED597818BE3C4E008874F6 /* Images.xcassets */; };
 		93ED598018BE3C4E008874F6 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93ED597F18BE3C4E008874F6 /* XCTest.framework */; };
 		93ED598118BE3C4E008874F6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93ED596018BE3C4D008874F6 /* Foundation.framework */; };
 		93ED598218BE3C4E008874F6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93ED596418BE3C4E008874F6 /* UIKit.framework */; };
 		93ED598A18BE3C4E008874F6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93ED598818BE3C4E008874F6 /* InfoPlist.strings */; };
 		93ED598C18BE3C4E008874F6 /* CP125A_HW6Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ED598B18BE3C4E008874F6 /* CP125A_HW6Tests.m */; };
+		93ED599718BF0317008874F6 /* JMSPhotoListCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ED599618BF0317008874F6 /* JMSPhotoListCollectionViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9350438518BF0DCC00BD5F48 /* JMSCollectionPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSCollectionPhotoCell.h; path = "View Controllers/Views/JMSCollectionPhotoCell.h"; sourceTree = "<group>"; };
+		9350438618BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSCollectionPhotoCell.m; path = "View Controllers/Views/JMSCollectionPhotoCell.m"; sourceTree = "<group>"; };
+		9350438B18BF0E6D00BD5F48 /* JMSPhotoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSPhotoData.h; path = Model/JMSPhotoData.h; sourceTree = "<group>"; };
+		9350438C18BF0E6D00BD5F48 /* JMSPhotoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSPhotoData.m; path = Model/JMSPhotoData.m; sourceTree = "<group>"; };
+		9350438E18BF0E7B00BD5F48 /* JMSPhotoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSPhotoStore.h; path = Model/JMSPhotoStore.h; sourceTree = "<group>"; };
+		9350438F18BF0E7B00BD5F48 /* JMSPhotoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSPhotoStore.m; path = Model/JMSPhotoStore.m; sourceTree = "<group>"; };
 		93ED595D18BE3C4D008874F6 /* CP125A_HW6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CP125A_HW6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93ED596018BE3C4D008874F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		93ED596218BE3C4E008874F6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -45,14 +54,14 @@
 		93ED596F18BE3C4E008874F6 /* JMSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JMSAppDelegate.h; sourceTree = "<group>"; };
 		93ED597018BE3C4E008874F6 /* JMSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JMSAppDelegate.m; sourceTree = "<group>"; };
 		93ED597318BE3C4E008874F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		93ED597518BE3C4E008874F6 /* JMSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JMSViewController.h; sourceTree = "<group>"; };
-		93ED597618BE3C4E008874F6 /* JMSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JMSViewController.m; sourceTree = "<group>"; };
 		93ED597818BE3C4E008874F6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		93ED597E18BE3C4E008874F6 /* CP125A_HW6Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CP125A_HW6Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93ED597F18BE3C4E008874F6 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		93ED598718BE3C4E008874F6 /* CP125A_HW6Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CP125A_HW6Tests-Info.plist"; sourceTree = "<group>"; };
 		93ED598918BE3C4E008874F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		93ED598B18BE3C4E008874F6 /* CP125A_HW6Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CP125A_HW6Tests.m; sourceTree = "<group>"; };
+		93ED599518BF0317008874F6 /* JMSPhotoListCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSPhotoListCollectionViewController.h; path = "View Controllers/JMSPhotoListCollectionViewController.h"; sourceTree = "<group>"; };
+		93ED599618BF0317008874F6 /* JMSPhotoListCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSPhotoListCollectionViewController.m; path = "View Controllers/JMSPhotoListCollectionViewController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +88,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9350438818BF0E3500BD5F48 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9350438518BF0DCC00BD5F48 /* JMSCollectionPhotoCell.h */,
+				9350438618BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		9350438918BF0E3B00BD5F48 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				93ED599518BF0317008874F6 /* JMSPhotoListCollectionViewController.h */,
+				93ED599618BF0317008874F6 /* JMSPhotoListCollectionViewController.m */,
+				9350438818BF0E3500BD5F48 /* Views */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		9350438A18BF0E4800BD5F48 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9350438E18BF0E7B00BD5F48 /* JMSPhotoStore.h */,
+				9350438F18BF0E7B00BD5F48 /* JMSPhotoStore.m */,
+				9350438B18BF0E6D00BD5F48 /* JMSPhotoData.h */,
+				9350438C18BF0E6D00BD5F48 /* JMSPhotoData.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		93ED595418BE3C4D008874F6 = {
 			isa = PBXGroup;
 			children = (
@@ -115,8 +154,8 @@
 				93ED596F18BE3C4E008874F6 /* JMSAppDelegate.h */,
 				93ED597018BE3C4E008874F6 /* JMSAppDelegate.m */,
 				93ED597218BE3C4E008874F6 /* Main.storyboard */,
-				93ED597518BE3C4E008874F6 /* JMSViewController.h */,
-				93ED597618BE3C4E008874F6 /* JMSViewController.m */,
+				9350438918BF0E3B00BD5F48 /* View Controllers */,
+				9350438A18BF0E4800BD5F48 /* Model */,
 				93ED597818BE3C4E008874F6 /* Images.xcassets */,
 				93ED596718BE3C4E008874F6 /* Supporting Files */,
 			);
@@ -250,9 +289,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93ED597718BE3C4E008874F6 /* JMSViewController.m in Sources */,
+				93ED599718BF0317008874F6 /* JMSPhotoListCollectionViewController.m in Sources */,
 				93ED596D18BE3C4E008874F6 /* main.m in Sources */,
 				93ED597118BE3C4E008874F6 /* JMSAppDelegate.m in Sources */,
+				9350438D18BF0E6D00BD5F48 /* JMSPhotoData.m in Sources */,
+				9350438718BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m in Sources */,
+				9350439018BF0E7B00BD5F48 /* JMSPhotoStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +499,7 @@
 				93ED599118BE3C4E008874F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		93ED599218BE3C4E008874F6 /* Build configuration list for PBXNativeTarget "CP125A_HW6Tests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +508,7 @@
 				93ED599418BE3C4E008874F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
