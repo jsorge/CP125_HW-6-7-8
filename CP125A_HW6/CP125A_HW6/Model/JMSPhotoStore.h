@@ -13,4 +13,7 @@
 
 @property (strong, nonatomic)NSMutableArray *photoArray;
 
+#pragma mark - API
++ (instancetype)sharedStore;
+
 @end

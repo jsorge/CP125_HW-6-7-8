@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Photo List Collection View Controller-->
+        <!--Photo List Collection View Controller - Photos-->
         <scene sceneID="vh1-3r-xp0">
             <objects>
                 <collectionViewController autoresizesArchivedViewToFullSize="NO" id="G5g-2j-YSf" customClass="JMSPhotoListCollectionViewController" sceneMemberID="viewController">
@@ -50,7 +50,13 @@
                             <outlet property="delegate" destination="G5g-2j-YSf" id="Ebq-eS-MKo"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="v4d-HW-mR5"/>
+                    <navigationItem key="navigationItem" title="Photos" id="v4d-HW-mR5">
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="Iuh-vQ-oUa">
+                            <connections>
+                                <action selector="cameraButtonTapped:" destination="G5g-2j-YSf" id="eGC-KK-2pa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MDA-9D-TnP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

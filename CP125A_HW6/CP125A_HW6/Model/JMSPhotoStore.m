@@ -13,6 +13,17 @@ static NSString *const photoArrayKey = @"photoArray";
 
 @implementation JMSPhotoStore
 
+#pragma mark - API
++ (instancetype)sharedStore
+{
+    static JMSPhotoStore *_sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedInstance = [[JMSPhotoStore alloc] init];
+    });
+    return _sharedInstance;
+}
+
 #pragma mark - NSSecureCoding
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {

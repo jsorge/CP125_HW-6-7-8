@@ -8,15 +8,17 @@
 
 #import "JMSPhotoListCollectionViewController.h"
 #import "JMSCollectionPhotoCell.h"
-
-@interface JMSPhotoListCollectionViewController ()
-
-@end
+#import "JMSPhotoStore.h"
+#import "JMSPhotoData.h"
 
 static NSString *const photoCellReuse = @"photoCell";
 
-@implementation JMSPhotoListCollectionViewController
+@interface JMSPhotoListCollectionViewController ()
+@property (strong, nonatomic)JMSPhotoStore *photoStore;
+@end
 
+@implementation JMSPhotoListCollectionViewController
+#pragma mark - Lifecycle
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,21 +34,44 @@ static NSString *const photoCellReuse = @"photoCell";
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - Properties
+- (JMSPhotoStore *)photoStore
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    if (!_photoStore) {
+        _photoStore = [JMSPhotoStore sharedStore];
+    }
+    return _photoStore;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+#pragma mark - IBActions
+- (IBAction)cameraButtonTapped:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
 }
-*/
+
+
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return [self.photoStore.photoArray count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    JMSCollectionPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:photoCellReuse forIndexPath:indexPath];
+    
+    JMSPhotoData *photo = [self.photoStore.photoArray objectAtIndex:indexPath.item];
+    
+    cell.imageView.image = photo.photo;
+    cell.photoLabel.text = photo.title;
+    
+    return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
 
 @end
