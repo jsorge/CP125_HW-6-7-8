@@ -53,7 +53,7 @@
                     <navigationItem key="navigationItem" title="Photos" id="v4d-HW-mR5">
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="Iuh-vQ-oUa">
                             <connections>
-                                <action selector="cameraButtonTapped:" destination="G5g-2j-YSf" id="eGC-KK-2pa"/>
+                                <segue destination="seD-PC-p3i" kind="modal" identifier="addNewPhoto" id="UL1-eZ-TYX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -61,6 +61,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MDA-9D-TnP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="694" y="60"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="XrQ-1h-xHj">
+            <objects>
+                <viewController id="O8m-b4-fyD" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a7Y-bG-sTE"/>
+                        <viewControllerLayoutGuide type="bottom" id="wyZ-ZW-Osu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8oG-MN-r33">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="7ix-eg-CZH"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fGa-sI-kAA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1702" y="60"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pHL-Da-TJ3">
@@ -79,6 +98,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wd2-xV-Hp1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="168" y="60"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dnE-J4-jUN">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="seD-PC-p3i" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qoy-gU-LV0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="O8m-b4-fyD" kind="relationship" relationship="rootViewController" id="pgS-lR-RnR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZuO-9L-a8O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1176" y="60"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

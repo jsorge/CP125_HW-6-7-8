@@ -13,6 +13,7 @@
 @import MobileCoreServices;
 
 static NSString *const photoCellReuse = @"photoCell";
+static NSString *const addNewPhotoSegue = @"addNewPhoto";
 
 @interface JMSPhotoListCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 @property (strong, nonatomic)JMSPhotoStore *photoStore;
