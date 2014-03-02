@@ -31,6 +31,13 @@
 - (JMSPhotoData *)addNewPictureToStoreWithImage:(UIImage *)image title:(NSString *)title;
 
 /**
+ *  Deletes the photo, and saves the updated array.
+ *
+ *  @param index Index of photo to be deleted
+ */
+- (void)deletePhotoAtIndex:(NSInteger)index;
+
+/**
  *  Saves the current photoArray to disk.
  */
 - (void)save;
