@@ -10,15 +10,17 @@
 #import "JMSCollectionPhotoCell.h"
 #import "JMSPhotoStore.h"
 #import "JMSPhotoData.h"
+#import "JMSNewPhotoTableViewController.h"
+
 @import MobileCoreServices;
 
 static NSString *const photoCellReuse = @"photoCell";
 static NSString *const addNewPhotoSegue = @"addNewPhoto";
 
-@interface JMSPhotoListCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface JMSPhotoListCollectionViewController () <UIActionSheetDelegate, JMSNewPhotoTVCDelegate>
 @property (strong, nonatomic)JMSPhotoStore *photoStore;
-@property (strong, nonatomic)UIImagePickerController *imagePicker;
 @property (nonatomic)BOOL hasCamera;
+@property (nonatomic)UIImagePickerControllerSourceType pickerSourceType;
 @end
 
 @implementation JMSPhotoListCollectionViewController
@@ -39,6 +41,16 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
     self.hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:addNewPhotoSegue]) {
+        UINavigationController *destinationNavigation = segue.destinationViewController;
+        JMSNewPhotoTableViewController *destination = (JMSNewPhotoTableViewController *)destinationNavigation.topViewController;
+        destination.imagePicker.sourceType = self.pickerSourceType;
+        destination.delegate = self;
+    }
+}
+
 #pragma mark - Properties
 - (JMSPhotoStore *)photoStore
 {
@@ -46,15 +58,6 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
         _photoStore = [JMSPhotoStore sharedStore];
     }
     return _photoStore;
-}
-
-- (UIImagePickerController *)imagePicker
-{
-    if (!_imagePicker) {
-        _imagePicker = [[UIImagePickerController alloc] init];
-        _imagePicker.delegate = self;
-    }
-    return _imagePicker;
 }
 
 #pragma mark - IBActions
@@ -68,8 +71,8 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
                                                              otherButtonTitles:@"Take Photo", @"Use Existing", nil];
         [whichCameraSheet showInView:self.view];
     } else {
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:self.imagePicker animated:YES completion:nil];
+        self.pickerSourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self performSegueWithIdentifier:addNewPhotoSegue sender:nil];
     }
 }
 
@@ -98,37 +101,30 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
     
 }
 
-#pragma mark - UIImagePickerControllerDelegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    UIImage *pickedImage = info[UIImagePickerControllerEditedImage];
-    if (!pickedImage) {
-        pickedImage = info[UIImagePickerControllerOriginalImage];
+    if (buttonIndex == 0) {
+        self.pickerSourceType = UIImagePickerControllerSourceTypeCamera;
+    } else if (buttonIndex == 1) {
+        self.pickerSourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
-    
-    JMSPhotoData *newPhoto = [self.photoStore addNewPictureToStoreWithImage:pickedImage title:nil];
-    
+    [self performSegueWithIdentifier:addNewPhotoSegue sender:nil];
+}
+
+#pragma mark - JMSNewPhotoTVCDelegate
+- (void)newPhotoViewControllerDidCancel:(JMSNewPhotoTableViewController *)controller
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)newPhotoViewControllerDidSave:(JMSNewPhotoTableViewController *)controller
+{
+    JMSPhotoData *newPhoto = [self.photoStore addNewPictureToStoreWithImage:controller.photo title:controller.title];
     NSInteger index = [self.photoStore.photoArray indexOfObject:newPhoto];
     [self dismissViewControllerAnimated:YES completion:^{
         [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
     }];
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - UIActionSheetDelegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        //Camera
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    } else if (buttonIndex == 1) {
-        //Photo Library
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    }
-    [self presentViewController:self.imagePicker animated:YES completion:nil];
-}
 @end
