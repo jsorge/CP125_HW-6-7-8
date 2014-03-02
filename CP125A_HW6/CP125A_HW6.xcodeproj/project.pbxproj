@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		930BED7A18C26F14002DF21A /* JMSNewPhotoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 930BED7918C26F14002DF21A /* JMSNewPhotoTableViewController.m */; };
 		9350438718BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9350438618BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m */; };
 		9350438D18BF0E6D00BD5F48 /* JMSPhotoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9350438C18BF0E6D00BD5F48 /* JMSPhotoData.m */; };
 		9350439018BF0E7B00BD5F48 /* JMSPhotoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9350438F18BF0E7B00BD5F48 /* JMSPhotoStore.m */; };
@@ -38,8 +37,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		930BED7818C26F14002DF21A /* JMSNewPhotoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSNewPhotoTableViewController.h; path = "View Controllers/JMSNewPhotoTableViewController.h"; sourceTree = "<group>"; };
-		930BED7918C26F14002DF21A /* JMSNewPhotoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSNewPhotoTableViewController.m; path = "View Controllers/JMSNewPhotoTableViewController.m"; sourceTree = "<group>"; };
 		9350438518BF0DCC00BD5F48 /* JMSCollectionPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSCollectionPhotoCell.h; path = "View Controllers/Views/JMSCollectionPhotoCell.h"; sourceTree = "<group>"; };
 		9350438618BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSCollectionPhotoCell.m; path = "View Controllers/Views/JMSCollectionPhotoCell.m"; sourceTree = "<group>"; };
 		9350438B18BF0E6D00BD5F48 /* JMSPhotoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSPhotoData.h; path = Model/JMSPhotoData.h; sourceTree = "<group>"; };
@@ -105,8 +102,6 @@
 			children = (
 				93ED599518BF0317008874F6 /* JMSPhotoListCollectionViewController.h */,
 				93ED599618BF0317008874F6 /* JMSPhotoListCollectionViewController.m */,
-				930BED7818C26F14002DF21A /* JMSNewPhotoTableViewController.h */,
-				930BED7918C26F14002DF21A /* JMSNewPhotoTableViewController.m */,
 				9350438818BF0E3500BD5F48 /* Views */,
 			);
 			name = "View Controllers";
@@ -294,7 +289,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				930BED7A18C26F14002DF21A /* JMSNewPhotoTableViewController.m in Sources */,
 				93ED599718BF0317008874F6 /* JMSPhotoListCollectionViewController.m in Sources */,
 				93ED596D18BE3C4E008874F6 /* main.m in Sources */,
 				93ED597118BE3C4E008874F6 /* JMSAppDelegate.m in Sources */,
