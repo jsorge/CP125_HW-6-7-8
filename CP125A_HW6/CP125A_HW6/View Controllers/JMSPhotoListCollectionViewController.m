@@ -11,13 +11,14 @@
 #import "JMSPhotoStore.h"
 #import "JMSPhotoData.h"
 #import "JMSAddPhotoTableViewController.h"
+#import "JMSSlideUpTransitionAnimator.h"
 
 @import MobileCoreServices;
 
 static NSString *const photoCellReuse = @"photoCell";
 static NSString *const addNewPhotoSegue = @"addNewPhoto";
 
-@interface JMSPhotoListCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, JMSAddPhotoTVCDelegate>
+@interface JMSPhotoListCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, JMSAddPhotoTVCDelegate, UIViewControllerTransitioningDelegate>
 @property (strong, nonatomic)JMSPhotoStore *photoStore;
 @property (strong, nonatomic)UIImagePickerController *imagePicker;
 @property (nonatomic)BOOL hasCamera;
@@ -66,6 +67,7 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
         _imagePicker = [[UIImagePickerController alloc] init];
         _imagePicker.delegate = self;
         _imagePicker.allowsEditing = YES;
+        _imagePicker.transitioningDelegate = self;
     }
     return _imagePicker;
 }
@@ -160,4 +162,16 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
         [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
     }];
 }
+
+#pragma mark - UIViewControllerTransitioningDelegate
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source;
+{
+    return [[JMSSlideUpTransitionAnimator alloc] init];
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed;
+{
+    return [[JMSSlideUpTransitionAnimator alloc] init];    
+}
+
 @end
