@@ -18,6 +18,15 @@
 
 @implementation JMSNewPhotoTableViewController
 #pragma mark - View Lifecycle
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -27,12 +36,12 @@
 {
     [super viewDidAppear:animated];
     
-    if (self.showingImagePicker) {
-        self.showingImagePicker = NO;
-    } else {
-        self.showingImagePicker = YES;
-        [self presentViewController:self.imagePicker animated:YES completion:nil];
-    }
+//    if (self.showingImagePicker) {
+//        self.showingImagePicker = NO;
+//    } else {
+//        self.showingImagePicker = YES;
+//        [self presentViewController:self.imagePicker animated:YES completion:nil];
+//    }
 }
 
 #pragma mark - Properties
@@ -79,8 +88,8 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [self.delegate newPhotoViewControllerDidCancel:self];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.delegate newPhotoViewControllerDidCancel:self];
+    }];
 }
-
 @end

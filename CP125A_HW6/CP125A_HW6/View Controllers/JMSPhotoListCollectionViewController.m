@@ -11,13 +11,14 @@
 #import "JMSPhotoStore.h"
 #import "JMSPhotoData.h"
 #import "JMSNewPhotoTableViewController.h"
+#import "JMSSlideUpTransitionAnimator.h"
 
 @import MobileCoreServices;
 
 static NSString *const photoCellReuse = @"photoCell";
 static NSString *const addNewPhotoSegue = @"addNewPhoto";
 
-@interface JMSPhotoListCollectionViewController () <UIActionSheetDelegate, JMSNewPhotoTVCDelegate>
+@interface JMSPhotoListCollectionViewController () <UIActionSheetDelegate, JMSNewPhotoTVCDelegate, UIViewControllerTransitioningDelegate>
 @property (strong, nonatomic)JMSPhotoStore *photoStore;
 @property (nonatomic)BOOL hasCamera;
 @property (nonatomic)UIImagePickerControllerSourceType pickerSourceType;
@@ -72,7 +73,7 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
         [whichCameraSheet showInView:self.view];
     } else {
         self.pickerSourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self performSegueWithIdentifier:addNewPhotoSegue sender:nil];
+        [self launchPhotoPicker];
     }
 }
 
@@ -109,7 +110,7 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
     } else if (buttonIndex == 1) {
         self.pickerSourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
-    [self performSegueWithIdentifier:addNewPhotoSegue sender:nil];
+    [self launchPhotoPicker];
 }
 
 #pragma mark - JMSNewPhotoTVCDelegate
@@ -125,6 +126,30 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
     [self dismissViewControllerAnimated:YES completion:^{
         [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
     }];
+}
+
+#pragma mark - UIViewControllerTransitioningDelegate
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    return [[JMSSlideUpTransitionAnimator alloc] init];
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    return [[JMSSlideUpTransitionAnimator alloc] init];
+}
+
+
+#pragma mark - Private
+- (void)launchPhotoPicker
+{
+    JMSNewPhotoTableViewController *newPhotoTVC = [[JMSNewPhotoTableViewController alloc] init];
+    newPhotoTVC.delegate = self;
+    newPhotoTVC.imagePicker.sourceType = self.pickerSourceType;
+
+    newPhotoTVC.imagePicker.navigationController.transitioningDelegate = self;
+    
+    [self presentViewController:newPhotoTVC.imagePicker.navigationController animated:YES completion:nil];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		930BED7A18C26F14002DF21A /* JMSNewPhotoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 930BED7918C26F14002DF21A /* JMSNewPhotoTableViewController.m */; };
+		932D74E418C38B6900395D30 /* JMSSlideUpTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 932D74E318C38B6900395D30 /* JMSSlideUpTransitionAnimator.m */; };
 		9350438718BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9350438618BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m */; };
 		9350438D18BF0E6D00BD5F48 /* JMSPhotoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9350438C18BF0E6D00BD5F48 /* JMSPhotoData.m */; };
 		9350439018BF0E7B00BD5F48 /* JMSPhotoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9350438F18BF0E7B00BD5F48 /* JMSPhotoStore.m */; };
@@ -40,6 +41,8 @@
 /* Begin PBXFileReference section */
 		930BED7818C26F14002DF21A /* JMSNewPhotoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSNewPhotoTableViewController.h; path = "View Controllers/JMSNewPhotoTableViewController.h"; sourceTree = "<group>"; };
 		930BED7918C26F14002DF21A /* JMSNewPhotoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSNewPhotoTableViewController.m; path = "View Controllers/JMSNewPhotoTableViewController.m"; sourceTree = "<group>"; };
+		932D74E218C38B6900395D30 /* JMSSlideUpTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMSSlideUpTransitionAnimator.h; sourceTree = "<group>"; };
+		932D74E318C38B6900395D30 /* JMSSlideUpTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMSSlideUpTransitionAnimator.m; sourceTree = "<group>"; };
 		9350438518BF0DCC00BD5F48 /* JMSCollectionPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSCollectionPhotoCell.h; path = "View Controllers/Views/JMSCollectionPhotoCell.h"; sourceTree = "<group>"; };
 		9350438618BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSCollectionPhotoCell.m; path = "View Controllers/Views/JMSCollectionPhotoCell.m"; sourceTree = "<group>"; };
 		9350438B18BF0E6D00BD5F48 /* JMSPhotoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSPhotoData.h; path = Model/JMSPhotoData.h; sourceTree = "<group>"; };
@@ -91,6 +94,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		932D74E118C38B4200395D30 /* Transition Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				932D74E218C38B6900395D30 /* JMSSlideUpTransitionAnimator.h */,
+				932D74E318C38B6900395D30 /* JMSSlideUpTransitionAnimator.m */,
+			);
+			name = "Transition Controllers";
+			sourceTree = "<group>";
+		};
 		9350438818BF0E3500BD5F48 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +173,7 @@
 				93ED597218BE3C4E008874F6 /* Main.storyboard */,
 				9350438918BF0E3B00BD5F48 /* View Controllers */,
 				9350438A18BF0E4800BD5F48 /* Model */,
+				932D74E118C38B4200395D30 /* Transition Controllers */,
 				93ED597818BE3C4E008874F6 /* Images.xcassets */,
 				93ED596718BE3C4E008874F6 /* Supporting Files */,
 			);
@@ -301,6 +314,7 @@
 				9350438D18BF0E6D00BD5F48 /* JMSPhotoData.m in Sources */,
 				9350438718BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m in Sources */,
 				9350439018BF0E7B00BD5F48 /* JMSPhotoStore.m in Sources */,
+				932D74E418C38B6900395D30 /* JMSSlideUpTransitionAnimator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
