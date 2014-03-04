@@ -10,12 +10,14 @@
 #import "JMSCollectionPhotoCell.h"
 #import "JMSPhotoStore.h"
 #import "JMSPhotoData.h"
+#import "JMSAddPhotoTableViewController.h"
+
 @import MobileCoreServices;
 
 static NSString *const photoCellReuse = @"photoCell";
 static NSString *const addNewPhotoSegue = @"addNewPhoto";
 
-@interface JMSPhotoListCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface JMSPhotoListCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, JMSAddPhotoTVCDelegate>
 @property (strong, nonatomic)JMSPhotoStore *photoStore;
 @property (strong, nonatomic)UIImagePickerController *imagePicker;
 @property (nonatomic)BOOL hasCamera;
@@ -39,6 +41,16 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
     self.hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:addNewPhotoSegue] && [sender isKindOfClass:[UIImage class]]) {
+        UINavigationController *destination = segue.destinationViewController;
+        JMSAddPhotoTableViewController *addViewController = (JMSAddPhotoTableViewController *)destination.topViewController;
+        addViewController.delegate = self;
+        addViewController.photo = sender;
+    }
+}
+
 #pragma mark - Properties
 - (JMSPhotoStore *)photoStore
 {
@@ -53,6 +65,7 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
     if (!_imagePicker) {
         _imagePicker = [[UIImagePickerController alloc] init];
         _imagePicker.delegate = self;
+        _imagePicker.allowsEditing = YES;
     }
     return _imagePicker;
 }
@@ -106,11 +119,8 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
         pickedImage = info[UIImagePickerControllerOriginalImage];
     }
     
-    JMSPhotoData *newPhoto = [self.photoStore addNewPictureToStoreWithImage:pickedImage title:nil];
-    
-    NSInteger index = [self.photoStore.photoArray indexOfObject:newPhoto];
     [self dismissViewControllerAnimated:YES completion:^{
-        [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
+        [self performSegueWithIdentifier:addNewPhotoSegue sender:pickedImage];
     }];
 }
 
@@ -130,5 +140,24 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
         self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
     [self presentViewController:self.imagePicker animated:YES completion:nil];
+}
+
+#pragma mark - JMSAddPhotoTVCDelegate
+- (void)addPhotoTableViewControllerDidCancel:(JMSAddPhotoTableViewController *)controller
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)addPhotoTableViewControllerDidSave:(JMSAddPhotoTableViewController *)controller
+{
+    UIImage *image = controller.photo;
+    NSString *title = controller.title;
+    
+    JMSPhotoData *newPhoto = [self.photoStore addNewPictureToStoreWithImage:image title:title];
+    
+    NSInteger index = [self.photoStore.photoArray indexOfObject:newPhoto];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
+    }];
 }
 @end
