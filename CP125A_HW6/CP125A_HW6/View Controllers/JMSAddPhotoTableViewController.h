@@ -11,11 +11,9 @@
 @protocol JMSAddPhotoTVCDelegate;
 
 @interface JMSAddPhotoTableViewController : UITableViewController
-
 @property (strong, nonatomic)UIImage *photo;
 @property (strong, nonatomic)NSString *title;
 @property (weak, nonatomic)id<JMSAddPhotoTVCDelegate>delegate;
-
 @end
 
 @protocol JMSAddPhotoTVCDelegate <NSObject>

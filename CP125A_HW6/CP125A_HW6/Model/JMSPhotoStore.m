@@ -17,7 +17,7 @@ static NSString *const photoArrayKey = @"photoArray";
 - (NSMutableArray *)photoArray
 {
     if (!_photoArray) {
-        _photoArray = [NSMutableArray array];
+        [self openSavedData];
     }
     return _photoArray;
 }
@@ -82,6 +82,8 @@ static NSString *const photoArrayKey = @"photoArray";
         [unarchiver finishDecoding];
         
         self.photoArray = savedPhotos;
+    } else {
+        self.photoArray = [NSMutableArray array];
     }
 }
 

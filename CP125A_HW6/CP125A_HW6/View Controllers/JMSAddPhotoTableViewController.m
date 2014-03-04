@@ -9,10 +9,8 @@
 #import "JMSAddPhotoTableViewController.h"
 
 @interface JMSAddPhotoTableViewController ()
-
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
-
 @end
 
 @implementation JMSAddPhotoTableViewController
