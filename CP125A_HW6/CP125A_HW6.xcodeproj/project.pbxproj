@@ -254,6 +254,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = jsorge;
 				TargetAttributes = {
+					93ED595C18BE3C4D008874F6 = {
+						DevelopmentTeam = 49LQXRW3X4;
+					};
 					93ED597D18BE3C4E008874F6 = {
 						TestTargetID = 93ED595C18BE3C4D008874F6;
 					};
@@ -437,10 +440,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CP125A_HW6/CP125A_HW6-Prefix.pch";
 				INFOPLIST_FILE = "CP125A_HW6/CP125A_HW6-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -450,10 +456,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CP125A_HW6/CP125A_HW6-Prefix.pch";
 				INFOPLIST_FILE = "CP125A_HW6/CP125A_HW6-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

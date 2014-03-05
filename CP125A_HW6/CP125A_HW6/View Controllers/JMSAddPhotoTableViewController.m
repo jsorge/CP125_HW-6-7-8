@@ -41,4 +41,18 @@
     self.title = self.titleTextField.text;
     [self.delegate addPhotoTableViewControllerDidSave:self];
 }
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        return;
+    }
+    
+    if (indexPath.row == 0) {
+        [self.titleTextField becomeFirstResponder];
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 @end

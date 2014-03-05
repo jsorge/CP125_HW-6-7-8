@@ -27,15 +27,6 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
 
 @implementation JMSPhotoListCollectionViewController
 #pragma mark - Lifecycle
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -50,6 +41,7 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
         JMSAddPhotoTableViewController *addViewController = (JMSAddPhotoTableViewController *)destination.topViewController;
         addViewController.delegate = self;
         addViewController.photo = sender;
+        destination.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     }
 }
 

@@ -42,7 +42,7 @@ static NSString *const photoArrayKey = @"photoArray";
     photoData.photo = image;
     photoData.title = title;
     
-    [[JMSPhotoStore sharedStore].photoArray addObject:photoData];
+    [[JMSPhotoStore sharedStore].photoArray insertObject:photoData atIndex:0];
     
     [self save];
     
