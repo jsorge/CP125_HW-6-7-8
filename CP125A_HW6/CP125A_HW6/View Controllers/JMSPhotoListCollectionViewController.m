@@ -12,6 +12,7 @@
 #import "JMSPhotoData.h"
 #import "JMSAddPhotoTableViewController.h"
 #import "JMSSlideUpTransitionAnimator.h"
+#import "JMSSlideDownTransitionAnimator.h"
 
 @import MobileCoreServices;
 
@@ -171,7 +172,7 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed;
 {
-    return [[JMSSlideUpTransitionAnimator alloc] init];    
+    return [[JMSSlideDownTransitionAnimator alloc] init];
 }
 
 @end
