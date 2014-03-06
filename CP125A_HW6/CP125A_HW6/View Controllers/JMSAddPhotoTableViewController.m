@@ -7,8 +7,13 @@
 //
 
 #import "JMSAddPhotoTableViewController.h"
+#import "JMSLocationSearchTableViewController.h"
 
-@interface JMSAddPhotoTableViewController ()
+@import MapKit.MKPlacemark;
+
+static NSString *const locationSelectSegue = @"selectLocation";
+
+@interface JMSAddPhotoTableViewController () <JMSLocationSelectionDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @end
@@ -51,8 +56,22 @@
     
     if (indexPath.row == 0) {
         [self.titleTextField becomeFirstResponder];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    } else if (indexPath.row == 1) {
+        [self performSegueWithIdentifier:locationSelectSegue sender:nil];
     }
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+#pragma mark - JMSLocationSelectionDelegate
+- (void)locationSelectionDidCancel:(JMSLocationSearchTableViewController *)controller
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)locationSelection:(JMSLocationSearchTableViewController *)controller didSelectLocation:(MKPlacemark *)placemark
+{
+    self.placemark = placemark;
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 @end

@@ -7,9 +7,11 @@
 //
 
 #import "JMSPhotoData.h"
+@import MapKit.MKPlacemark;
 
 static NSString *const photoKey = @"photo";
 static NSString *const titleKey = @"title";
+static NSString *const placemarkKey = @"placemark";
 
 @implementation JMSPhotoData
 
@@ -18,6 +20,7 @@ static NSString *const titleKey = @"title";
 {
     [aCoder encodeObject:self.photo forKey:photoKey];
     [aCoder encodeObject:self.title forKey:titleKey];
+    [aCoder encodeObject:self.placemark forKey:placemarkKey];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -26,6 +29,7 @@ static NSString *const titleKey = @"title";
     if (self) {
         self.photo = [aDecoder decodeObjectOfClass:[UIImage class] forKey:photoKey];
         self.title = [aDecoder decodeObjectOfClass:[NSString class] forKey:titleKey];
+        self.placemark = [aDecoder decodeObjectOfClass:[MKPlacemark class] forKey:placemarkKey];
     }
     return self;
 }
