@@ -9,10 +9,11 @@
 #import "JMSPhotoStore.h"
 #import "JMSPhotoData.h"
 
+@import MapKit;
+
 static NSString *const photoArrayKey = @"photoArray";
 
 @implementation JMSPhotoStore
-
 #pragma mark - Properties
 - (NSMutableArray *)photoArray
 {
@@ -34,13 +35,16 @@ static NSString *const photoArrayKey = @"photoArray";
     return _sharedInstance;
 }
 
-- (JMSPhotoData *)addNewPictureToStoreWithImage:(UIImage *)image title:(NSString *)title;
+- (JMSPhotoData *)addNewPictureToStoreWithImage:(UIImage *)image title:(NSString *)title placemark:(MKPlacemark *)placemark url:(NSURL *)url phone:(NSString *)phone;
 {
     NSAssert(image != nil, @"The image can't be nil");
     
     JMSPhotoData *photoData = [[JMSPhotoData alloc] init];
     photoData.photo = image;
     photoData.title = title;
+    photoData.placemark = placemark;
+    photoData.url = url;
+    photoData.phone = phone;
     
     [[JMSPhotoStore sharedStore].photoArray insertObject:photoData atIndex:0];
     

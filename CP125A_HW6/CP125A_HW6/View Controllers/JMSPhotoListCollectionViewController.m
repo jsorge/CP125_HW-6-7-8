@@ -13,11 +13,14 @@
 #import "JMSAddPhotoTableViewController.h"
 #import "JMSSlideUpTransitionAnimator.h"
 #import "JMSSlideDownTransitionAnimator.h"
+#import "JMSPhotoDetailViewController.h"
 
 @import MobileCoreServices;
+@import MapKit;
 
 static NSString *const photoCellReuse = @"photoCell";
 static NSString *const addNewPhotoSegue = @"addNewPhoto";
+static NSString *const photoDetailSegue = @"viewPhotoDetail";
 
 @interface JMSPhotoListCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, JMSAddPhotoTVCDelegate, UIViewControllerTransitioningDelegate>
 @property (strong, nonatomic)JMSPhotoStore *photoStore;
@@ -36,12 +39,17 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:addNewPhotoSegue] && [sender isKindOfClass:[UIImage class]]) {
+    if ([segue.identifier isEqualToString:addNewPhotoSegue]) {
+        NSAssert([sender isKindOfClass:[UIImage class]], @"The %@ segue must send an image.", addNewPhotoSegue);
         UINavigationController *destination = segue.destinationViewController;
         JMSAddPhotoTableViewController *addViewController = (JMSAddPhotoTableViewController *)destination.topViewController;
         addViewController.delegate = self;
         addViewController.photo = sender;
         destination.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    } else if ([segue.identifier isEqualToString:photoDetailSegue]) {
+        NSAssert([sender isKindOfClass:[JMSPhotoData class]], @"%@ segue must send a PhotoData object", photoDetailSegue);
+        JMSPhotoDetailViewController *destination = (JMSPhotoDetailViewController *)segue.destinationViewController;
+        destination.photo = sender;
     }
 }
 
@@ -103,7 +111,8 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    JMSPhotoData *photo = self.photoStore.photoArray[indexPath.row];
+    [self performSegueWithIdentifier:photoDetailSegue sender:photo];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -147,8 +156,11 @@ static NSString *const addNewPhotoSegue = @"addNewPhoto";
 {
     UIImage *image = controller.photo;
     NSString *title = controller.title;
+    MKPlacemark *placemark = controller.placemark;
+    NSURL *url = controller.url;
+    NSString *phone = controller.phone;
     
-    JMSPhotoData *newPhoto = [self.photoStore addNewPictureToStoreWithImage:image title:title];
+    JMSPhotoData *newPhoto = [self.photoStore addNewPictureToStoreWithImage:image title:title placemark:placemark url:url phone:phone];
     
     NSInteger index = [self.photoStore.photoArray indexOfObject:newPhoto];
     [self dismissViewControllerAnimated:YES completion:^{

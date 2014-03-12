@@ -10,11 +10,14 @@
 @import MapKit;
 @import CoreLocation;
 
+static NSString *const locationCellID = @"locationCell";
+
 @interface JMSLocationSearchTableViewController () <UISearchBarDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic)NSArray *searchResults;
 @property (strong, nonatomic)MKLocalSearch *localSearch;
 @property (strong, nonatomic)CLLocationManager *locationManager;
+@property (strong, nonatomic)UIActivityIndicatorView *activityIndicator;
 @end
 
 @implementation JMSLocationSearchTableViewController
@@ -31,7 +34,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.searchBar.delegate = self;
+    [self.searchBar becomeFirstResponder];
+    self.tableView.backgroundView = self.activityIndicator;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.locationManager stopUpdatingLocation];
 }
 
 #pragma mark - Properties
@@ -45,6 +56,14 @@
     return _locationManager;
 }
 
+- (UIActivityIndicatorView *)activityIndicator
+{
+    if (!_activityIndicator) {
+        _activityIndicator = [[UIActivityIndicatorView alloc] init];
+    }
+    return _activityIndicator;
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -53,7 +72,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"locationCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:locationCellID forIndexPath:indexPath];
     
     MKMapItem *mapItem = self.searchResults[indexPath.row];
     cell.textLabel.text = mapItem.name;
@@ -66,12 +85,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MKMapItem *selectedLocation = self.searchResults[indexPath.row];
-    [self.delegate locationSelection:self didSelectLocation:selectedLocation.placemark];
+    [self.delegate locationSelection:self didSelectLocation:selectedLocation];
 }
 
 #pragma mark - UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    [self.activityIndicator startAnimating];
     [self.locationManager startUpdatingLocation];
 }
 
@@ -93,6 +113,7 @@
         }
         
         self.searchResults = response.mapItems;
+        [self.activityIndicator stopAnimating];
         [self.tableView reloadData];
     }];
 }

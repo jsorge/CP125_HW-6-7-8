@@ -9,30 +9,29 @@
 #import "JMSAddPhotoTableViewController.h"
 #import "JMSLocationSearchTableViewController.h"
 
-@import MapKit.MKPlacemark;
+@import MapKit.MKMapItem;
 
 static NSString *const locationSelectSegue = @"selectLocation";
+static NSString *const locationSelectTVC = @"locationSearchTVC";
 
 @interface JMSAddPhotoTableViewController () <JMSLocationSelectionDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UITextField *titleTextField;
+@property (weak, nonatomic) IBOutlet UILabel *locationNameLabel;
 @end
 
 @implementation JMSAddPhotoTableViewController
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.imageView.image = self.photo;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.title) {
+        self.locationNameLabel.text = self.title;
+    }
 }
 
 #pragma mark - IBActions
@@ -43,7 +42,6 @@ static NSString *const locationSelectSegue = @"selectLocation";
 
 - (IBAction)doneButtonTapped:(id)sender
 {
-    self.title = self.titleTextField.text;
     [self.delegate addPhotoTableViewControllerDidSave:self];
 }
 
@@ -55,10 +53,10 @@ static NSString *const locationSelectSegue = @"selectLocation";
     }
     
     if (indexPath.row == 0) {
-        [self.titleTextField becomeFirstResponder];
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    } else if (indexPath.row == 1) {
-        [self performSegueWithIdentifier:locationSelectSegue sender:nil];
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        JMSLocationSearchTableViewController *destination = [mainStoryboard instantiateViewControllerWithIdentifier:locationSelectTVC];
+        destination.delegate = self;
+        [self.navigationController pushViewController:destination animated:YES];
     }
 }
 
@@ -68,9 +66,12 @@ static NSString *const locationSelectSegue = @"selectLocation";
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)locationSelection:(JMSLocationSearchTableViewController *)controller didSelectLocation:(MKPlacemark *)placemark
+- (void)locationSelection:(JMSLocationSearchTableViewController *)controller didSelectLocation:(MKMapItem *)mapItem
 {
-    self.placemark = placemark;
+    self.placemark = mapItem.placemark;
+    self.title = mapItem.name;
+    self.url = mapItem.url;
+    self.phone = mapItem.phoneNumber;
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class MKPlacemark;
+@class MKMapItem;
 
 @protocol JMSLocationSelectionDelegate;
 
@@ -18,6 +18,6 @@
 @protocol JMSLocationSelectionDelegate <NSObject>
 
 - (void)locationSelectionDidCancel:(JMSLocationSearchTableViewController *)controller;
-- (void)locationSelection:(JMSLocationSearchTableViewController *)controller didSelectLocation:(MKPlacemark *)placemark;
+- (void)locationSelection:(JMSLocationSearchTableViewController *)controller didSelectLocation:(MKMapItem *)mapItem;
 
 @end
