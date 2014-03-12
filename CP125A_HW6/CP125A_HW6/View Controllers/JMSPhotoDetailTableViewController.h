@@ -1,5 +1,5 @@
 //
-//  JMSPhotoDetailViewController.h
+//  JMSPhotoDetailTableViewController.h
 //  CP125A_HW6
 //
 //  Created by Jared Sorge on 3/11/14.
@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 @class JMSPhotoData;
 
-@interface JMSPhotoDetailViewController : UIViewController
+@interface JMSPhotoDetailTableViewController : UITableViewController
 @property (strong, nonatomic)JMSPhotoData *photo;
 @end

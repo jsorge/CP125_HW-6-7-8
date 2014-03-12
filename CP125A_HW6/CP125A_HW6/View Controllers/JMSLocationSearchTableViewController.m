@@ -36,13 +36,14 @@ static NSString *const locationCellID = @"locationCell";
     [super viewDidLoad];
     self.searchBar.delegate = self;
     [self.searchBar becomeFirstResponder];
-    self.tableView.backgroundView = self.activityIndicator;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.locationManager stopUpdatingLocation];
+    if (self.localSearch.isSearching) {
+        [self.localSearch cancel];
+    }
 }
 
 #pragma mark - Properties
@@ -59,7 +60,7 @@ static NSString *const locationCellID = @"locationCell";
 - (UIActivityIndicatorView *)activityIndicator
 {
     if (!_activityIndicator) {
-        _activityIndicator = [[UIActivityIndicatorView alloc] init];
+        _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     }
     return _activityIndicator;
 }
@@ -91,6 +92,7 @@ static NSString *const locationCellID = @"locationCell";
 #pragma mark - UISearchBarDelegate
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    self.tableView.backgroundView = self.activityIndicator;
     [self.activityIndicator startAnimating];
     [self.locationManager startUpdatingLocation];
 }

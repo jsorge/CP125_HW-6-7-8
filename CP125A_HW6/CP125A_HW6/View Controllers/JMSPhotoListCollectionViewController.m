@@ -13,14 +13,14 @@
 #import "JMSAddPhotoTableViewController.h"
 #import "JMSSlideUpTransitionAnimator.h"
 #import "JMSSlideDownTransitionAnimator.h"
-#import "JMSPhotoDetailViewController.h"
+#import "JMSPhotoMapViewController.h"
 
 @import MobileCoreServices;
 @import MapKit;
 
 static NSString *const photoCellReuse = @"photoCell";
 static NSString *const addNewPhotoSegue = @"addNewPhoto";
-static NSString *const photoDetailSegue = @"viewPhotoDetail";
+static NSString *const photoDetailSegue = @"viewPhotoMap";
 
 @interface JMSPhotoListCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, JMSAddPhotoTVCDelegate, UIViewControllerTransitioningDelegate>
 @property (strong, nonatomic)JMSPhotoStore *photoStore;
@@ -48,7 +48,7 @@ static NSString *const photoDetailSegue = @"viewPhotoDetail";
         destination.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     } else if ([segue.identifier isEqualToString:photoDetailSegue]) {
         NSAssert([sender isKindOfClass:[JMSPhotoData class]], @"%@ segue must send a PhotoData object", photoDetailSegue);
-        JMSPhotoDetailViewController *destination = (JMSPhotoDetailViewController *)segue.destinationViewController;
+        JMSPhotoMapViewController *destination = (JMSPhotoMapViewController *)segue.destinationViewController;
         destination.photo = sender;
     }
 }
