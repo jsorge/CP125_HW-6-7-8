@@ -66,7 +66,6 @@ static NSString *const photoArrayKey = @"photoArray";
     NSMutableData *dataToWrite = [NSMutableData data];
     
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:dataToWrite];
-    archiver.requiresSecureCoding = YES;
     [archiver encodeObject:photoArray forKey:photoArrayKey];
     [archiver finishEncoding];
     
@@ -80,9 +79,7 @@ static NSString *const photoArrayKey = @"photoArray";
     
     if (savedData) {
         NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:savedData];
-        unarchiver.requiresSecureCoding = YES;
-        NSSet *eligibleClasses = [NSSet setWithArray:@[[JMSPhotoData class], [NSMutableArray class]]];
-        NSMutableArray *savedPhotos = [unarchiver decodeObjectOfClasses:eligibleClasses forKey:photoArrayKey];
+        NSMutableArray *savedPhotos = [unarchiver decodeObjectForKey:photoArrayKey];
         [unarchiver finishDecoding];
         
         self.photoArray = savedPhotos;

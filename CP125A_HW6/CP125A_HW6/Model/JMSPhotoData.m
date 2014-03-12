@@ -31,18 +31,13 @@ static NSString *const phoneKey = @"phone";
 {
     self = [super init];
     if (self) {
-        self.photo = [aDecoder decodeObjectOfClass:[UIImage class] forKey:photoKey];
-        self.title = [aDecoder decodeObjectOfClass:[NSString class] forKey:titleKey];
-        self.placemark = [aDecoder decodeObjectOfClass:[MKPlacemark class] forKey:placemarkKey];
-        self.url = [aDecoder decodeObjectOfClass:[NSURL class] forKey:urlKey];
-        self.phone = [aDecoder decodeObjectOfClass:[NSString class] forKey:phoneKey];
+        self.photo = [aDecoder decodeObjectForKey:photoKey];
+        self.title = [aDecoder decodeObjectForKey:titleKey];
+        self.placemark = [aDecoder decodeObjectForKey:placemarkKey];
+        self.url = [aDecoder decodeObjectForKey:urlKey];
+        self.phone = [aDecoder decodeObjectForKey:phoneKey];
     }
     return self;
-}
-
-+ (BOOL)supportsSecureCoding
-{
-    return YES;
 }
 
 @end
