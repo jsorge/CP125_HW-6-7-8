@@ -31,6 +31,7 @@ static NSString *const embedTableSegue = @"embedTableDetails";
 {
     [super viewDidLoad];
     
+    self.title = self.photo.title;
     self.imageView.image = self.photo.photo;
 }
 

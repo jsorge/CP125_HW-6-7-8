@@ -63,7 +63,7 @@ static NSString *const locationSelectTVC = @"locationSearchTVC";
 #pragma mark - JMSLocationSelectionDelegate
 - (void)locationSelectionDidCancel:(JMSLocationSearchTableViewController *)controller
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)locationSelection:(JMSLocationSearchTableViewController *)controller didSelectLocation:(MKMapItem *)mapItem
@@ -72,7 +72,7 @@ static NSString *const locationSelectTVC = @"locationSearchTVC";
     self.title = mapItem.name;
     self.url = mapItem.url;
     self.phone = mapItem.phoneNumber;
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

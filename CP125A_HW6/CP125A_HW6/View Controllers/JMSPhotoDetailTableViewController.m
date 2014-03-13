@@ -28,4 +28,18 @@
     self.phoneLabel.text = self.photo.phone;
     self.addressLabel.text = ABCreateStringWithAddressDictionary(self.photo.placemark.addressDictionary, NO);
 }
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        if (self.photo.url) {
+            [[UIApplication sharedApplication] openURL:self.photo.url];
+        } else {
+            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
+    } else {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
 @end

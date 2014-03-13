@@ -18,6 +18,7 @@ static NSString *const locationCellID = @"locationCell";
 @property (strong, nonatomic)MKLocalSearch *localSearch;
 @property (strong, nonatomic)CLLocationManager *locationManager;
 @property (strong, nonatomic)UIActivityIndicatorView *activityIndicator;
+@property (nonatomic)BOOL canUseLocation;
 @end
 
 @implementation JMSLocationSearchTableViewController
@@ -34,6 +35,7 @@ static NSString *const locationCellID = @"locationCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     self.searchBar.delegate = self;
     [self.searchBar becomeFirstResponder];
 }
@@ -43,6 +45,16 @@ static NSString *const locationCellID = @"locationCell";
     [super viewWillDisappear:animated];
     if (self.localSearch.isSearching) {
         [self.localSearch cancel];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (!self.canUseLocation) {
+        [self showAlertWithMessage:nil];
+        [self.delegate locationSelectionDidCancel:self];
     }
 }
 
@@ -63,6 +75,17 @@ static NSString *const locationCellID = @"locationCell";
         _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     }
     return _activityIndicator;
+}
+
+- (BOOL)canUseLocation
+{
+    if (!_canUseLocation) {
+        BOOL locationIsEnabled = [CLLocationManager locationServicesEnabled];
+        BOOL locationIsAvailable = (([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized) ||
+                                    ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined));
+        _canUseLocation = locationIsEnabled && locationIsAvailable;
+    }
+    return _canUseLocation;
 }
 
 #pragma mark - UITableViewDataSource
@@ -111,6 +134,7 @@ static NSString *const locationCellID = @"locationCell";
     [self.localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
         if (!response) {
             NSLog(@"Error: %@", error);
+            [self showAlertWithMessage:[NSString stringWithFormat:@"There was a search error: %@", error.localizedDescription]];
             return;
         }
         
@@ -118,5 +142,20 @@ static NSString *const locationCellID = @"locationCell";
         [self.activityIndicator stopAnimating];
         [self.tableView reloadData];
     }];
+}
+
+#pragma mark - Private
+- (void)showAlertWithMessage:(NSString *)message
+{
+    if (!message) {
+        message = @"Location is not available. Please check to make sure your settings are correct and you have permission to use location features.";
+    }
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                    message:message
+                                                   delegate:nil
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"Ok", nil];
+    [alert show];
 }
 @end
