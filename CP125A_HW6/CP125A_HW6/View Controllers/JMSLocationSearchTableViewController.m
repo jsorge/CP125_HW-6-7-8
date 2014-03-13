@@ -144,6 +144,19 @@ static NSString *const locationCellID = @"locationCell";
     }];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied) {
+        [self showAlertWithMessage:nil];
+        
+        if (self.localSearch.searching) {
+            [self.activityIndicator stopAnimating];
+        }
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 #pragma mark - Private
 - (void)showAlertWithMessage:(NSString *)message
 {
