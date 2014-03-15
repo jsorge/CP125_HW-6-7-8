@@ -158,6 +158,10 @@ static NSString *const photoDetailSegue = @"viewPhotoMap";
     NSURL *url = controller.url;
     NSString *phone = controller.phone;
     
+    if ([JMSSettingsController autosaveToCameraRoll]) {
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    }
+    
     JMSPhotoData *newPhoto = [self.photoStore addNewPictureToStoreWithImage:image title:title placemark:placemark url:url phone:phone];
     
     NSInteger index = [self.photoStore.photoArray indexOfObject:newPhoto];
