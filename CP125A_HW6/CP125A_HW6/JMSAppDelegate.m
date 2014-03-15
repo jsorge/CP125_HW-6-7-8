@@ -7,12 +7,15 @@
 //
 
 #import "JMSAppDelegate.h"
+#import "JMSSettingsController.h"
 
 @implementation JMSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [JMSSettingsController registerStandardDefaults];
+    [JMSSettingsController registerUserDefaultListener];
+    
     return YES;
 }
 							
