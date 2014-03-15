@@ -14,6 +14,7 @@
 #import "JMSSlideUpTransitionAnimator.h"
 #import "JMSSlideDownTransitionAnimator.h"
 #import "JMSPhotoMapViewController.h"
+#import "JMSSettingsController.h"
 
 @import MobileCoreServices;
 @import MapKit;
@@ -67,7 +68,6 @@ static NSString *const photoDetailSegue = @"viewPhotoMap";
     if (!_imagePicker) {
         _imagePicker = [[UIImagePickerController alloc] init];
         _imagePicker.delegate = self;
-        _imagePicker.allowsEditing = YES;
         _imagePicker.transitioningDelegate = self;
     }
     return _imagePicker;
@@ -84,8 +84,7 @@ static NSString *const photoDetailSegue = @"viewPhotoMap";
                                                              otherButtonTitles:@"Take Photo", @"Use Existing", nil];
         [whichCameraSheet showInView:self.view];
     } else {
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:self.imagePicker animated:YES completion:nil];
+        [self showImagePickerViewWithType:UIImagePickerControllerSourceTypePhotoLibrary];
     }
 }
 
@@ -138,12 +137,11 @@ static NSString *const photoDetailSegue = @"viewPhotoMap";
 {
     if (buttonIndex == 0) {
         //Camera
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self showImagePickerViewWithType:UIImagePickerControllerSourceTypeCamera];
     } else if (buttonIndex == 1) {
         //Photo Library
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self showImagePickerViewWithType:UIImagePickerControllerSourceTypePhotoLibrary];
     }
-    [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 
 #pragma mark - JMSAddPhotoTVCDelegate
@@ -177,6 +175,18 @@ static NSString *const photoDetailSegue = @"viewPhotoMap";
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed;
 {
     return [[JMSSlideDownTransitionAnimator alloc] init];
+}
+
+#pragma mark - Private
+- (void)showImagePickerViewWithType:(UIImagePickerControllerSourceType)sourceType
+{
+    if ([JMSSettingsController enableEditMode]) {
+        self.imagePicker.allowsEditing = YES;
+    } else {
+        self.imagePicker.allowsEditing = NO;
+    }
+    self.imagePicker.sourceType = sourceType;
+    [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 
 @end
