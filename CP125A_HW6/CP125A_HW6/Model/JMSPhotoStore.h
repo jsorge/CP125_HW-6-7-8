@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class JMSPhotoData;
+@class MKPlacemark;
 
 @interface JMSPhotoStore : NSObject <NSSecureCoding>
 
@@ -28,7 +29,7 @@
  *
  *  @return The instance of the new photo
  */
-- (JMSPhotoData *)addNewPictureToStoreWithImage:(UIImage *)image title:(NSString *)title;
+- (JMSPhotoData *)addNewPictureToStoreWithImage:(UIImage *)image title:(NSString *)title placemark:(MKPlacemark *)placemark url:(NSURL *)url phone:(NSString *)phone;
 
 /**
  *  Deletes the photo, and saves the updated array.

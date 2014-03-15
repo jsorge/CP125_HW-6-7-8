@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+@class MKPlacemark;
 
-@interface JMSPhotoData : NSObject <NSSecureCoding>
+@interface JMSPhotoData : NSObject <NSCoding>
 
 @property (strong, nonatomic)UIImage *photo;
 @property (strong, nonatomic)NSString *title;
-
-//Add location attribute
+@property (strong, nonatomic)MKPlacemark *placemark;
+@property (strong, nonatomic)NSURL *url;
+@property (strong, nonatomic)NSString *phone;
 
 @end

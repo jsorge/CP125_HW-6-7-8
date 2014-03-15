@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MKPlacemark;
 
 @protocol JMSAddPhotoTVCDelegate;
 
 @interface JMSAddPhotoTableViewController : UITableViewController
 @property (strong, nonatomic)UIImage *photo;
 @property (strong, nonatomic)NSString *title;
+@property (strong, nonatomic)MKPlacemark *placemark;
+@property (strong, nonatomic)NSURL *url;
+@property (strong, nonatomic)NSString *phone;
 @property (weak, nonatomic)id<JMSAddPhotoTVCDelegate>delegate;
 @end
 

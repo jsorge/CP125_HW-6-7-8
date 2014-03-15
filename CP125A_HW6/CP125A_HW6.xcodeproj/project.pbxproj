@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9319F91B18CD16FF0035C24C /* JMSPhotoMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9319F91A18CD16FF0035C24C /* JMSPhotoMapViewController.m */; };
 		9350438718BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9350438618BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m */; };
 		9350438D18BF0E6D00BD5F48 /* JMSPhotoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9350438C18BF0E6D00BD5F48 /* JMSPhotoData.m */; };
 		9350439018BF0E7B00BD5F48 /* JMSPhotoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9350438F18BF0E7B00BD5F48 /* JMSPhotoStore.m */; };
+		9358061B18D0269F00295598 /* JMSPhotoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9358061A18D0269F00295598 /* JMSPhotoDetailViewController.m */; };
+		9358061E18D02A2A00295598 /* JMSPhotoDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9358061D18D02A2A00295598 /* JMSPhotoDetailTableViewController.m */; };
 		935B6B6118C5666900A460A6 /* JMSAddPhotoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935B6B6018C5666900A460A6 /* JMSAddPhotoTableViewController.m */; };
+		93604EBE18C7772300961505 /* JMSLocationSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93604EBD18C7772300961505 /* JMSLocationSearchTableViewController.m */; };
 		939D802218C628BC00D90855 /* JMSSlideUpTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 939D802018C628BC00D90855 /* JMSSlideUpTransitionAnimator.m */; };
 		939D802518C66E5900D90855 /* JMSSlideDownTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 939D802418C66E5900D90855 /* JMSSlideDownTransitionAnimator.m */; };
 		93ED596118BE3C4D008874F6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93ED596018BE3C4D008874F6 /* Foundation.framework */; };
@@ -40,14 +44,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9319F91918CD16FF0035C24C /* JMSPhotoMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSPhotoMapViewController.h; path = "View Controllers/JMSPhotoMapViewController.h"; sourceTree = "<group>"; };
+		9319F91A18CD16FF0035C24C /* JMSPhotoMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSPhotoMapViewController.m; path = "View Controllers/JMSPhotoMapViewController.m"; sourceTree = "<group>"; };
 		9350438518BF0DCC00BD5F48 /* JMSCollectionPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSCollectionPhotoCell.h; path = "View Controllers/Views/JMSCollectionPhotoCell.h"; sourceTree = "<group>"; };
 		9350438618BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSCollectionPhotoCell.m; path = "View Controllers/Views/JMSCollectionPhotoCell.m"; sourceTree = "<group>"; };
 		9350438B18BF0E6D00BD5F48 /* JMSPhotoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSPhotoData.h; path = Model/JMSPhotoData.h; sourceTree = "<group>"; };
 		9350438C18BF0E6D00BD5F48 /* JMSPhotoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSPhotoData.m; path = Model/JMSPhotoData.m; sourceTree = "<group>"; };
 		9350438E18BF0E7B00BD5F48 /* JMSPhotoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSPhotoStore.h; path = Model/JMSPhotoStore.h; sourceTree = "<group>"; };
 		9350438F18BF0E7B00BD5F48 /* JMSPhotoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSPhotoStore.m; path = Model/JMSPhotoStore.m; sourceTree = "<group>"; };
+		9358061918D0269F00295598 /* JMSPhotoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSPhotoDetailViewController.h; path = "View Controllers/JMSPhotoDetailViewController.h"; sourceTree = "<group>"; };
+		9358061A18D0269F00295598 /* JMSPhotoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSPhotoDetailViewController.m; path = "View Controllers/JMSPhotoDetailViewController.m"; sourceTree = "<group>"; };
+		9358061C18D02A2A00295598 /* JMSPhotoDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSPhotoDetailTableViewController.h; path = "View Controllers/JMSPhotoDetailTableViewController.h"; sourceTree = "<group>"; };
+		9358061D18D02A2A00295598 /* JMSPhotoDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSPhotoDetailTableViewController.m; path = "View Controllers/JMSPhotoDetailTableViewController.m"; sourceTree = "<group>"; };
 		935B6B5F18C5666900A460A6 /* JMSAddPhotoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSAddPhotoTableViewController.h; path = "View Controllers/JMSAddPhotoTableViewController.h"; sourceTree = "<group>"; };
 		935B6B6018C5666900A460A6 /* JMSAddPhotoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSAddPhotoTableViewController.m; path = "View Controllers/JMSAddPhotoTableViewController.m"; sourceTree = "<group>"; };
+		93604EBC18C7772300961505 /* JMSLocationSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JMSLocationSearchTableViewController.h; path = "View Controllers/JMSLocationSearchTableViewController.h"; sourceTree = "<group>"; };
+		93604EBD18C7772300961505 /* JMSLocationSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JMSLocationSearchTableViewController.m; path = "View Controllers/JMSLocationSearchTableViewController.m"; sourceTree = "<group>"; };
 		939D802018C628BC00D90855 /* JMSSlideUpTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMSSlideUpTransitionAnimator.m; sourceTree = "<group>"; };
 		939D802118C628BC00D90855 /* JMSSlideUpTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMSSlideUpTransitionAnimator.h; sourceTree = "<group>"; };
 		939D802318C66E5900D90855 /* JMSSlideDownTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMSSlideDownTransitionAnimator.h; sourceTree = "<group>"; };
@@ -113,6 +125,14 @@
 				93ED599618BF0317008874F6 /* JMSPhotoListCollectionViewController.m */,
 				935B6B5F18C5666900A460A6 /* JMSAddPhotoTableViewController.h */,
 				935B6B6018C5666900A460A6 /* JMSAddPhotoTableViewController.m */,
+				93604EBC18C7772300961505 /* JMSLocationSearchTableViewController.h */,
+				93604EBD18C7772300961505 /* JMSLocationSearchTableViewController.m */,
+				9319F91918CD16FF0035C24C /* JMSPhotoMapViewController.h */,
+				9319F91A18CD16FF0035C24C /* JMSPhotoMapViewController.m */,
+				9358061918D0269F00295598 /* JMSPhotoDetailViewController.h */,
+				9358061A18D0269F00295598 /* JMSPhotoDetailViewController.m */,
+				9358061C18D02A2A00295598 /* JMSPhotoDetailTableViewController.h */,
+				9358061D18D02A2A00295598 /* JMSPhotoDetailTableViewController.m */,
 				9350438818BF0E3500BD5F48 /* Views */,
 			);
 			name = "View Controllers";
@@ -308,14 +328,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				93ED599718BF0317008874F6 /* JMSPhotoListCollectionViewController.m in Sources */,
+				9319F91B18CD16FF0035C24C /* JMSPhotoMapViewController.m in Sources */,
 				935B6B6118C5666900A460A6 /* JMSAddPhotoTableViewController.m in Sources */,
 				93ED596D18BE3C4E008874F6 /* main.m in Sources */,
+				93604EBE18C7772300961505 /* JMSLocationSearchTableViewController.m in Sources */,
 				93ED597118BE3C4E008874F6 /* JMSAppDelegate.m in Sources */,
 				9350438D18BF0E6D00BD5F48 /* JMSPhotoData.m in Sources */,
+				9358061B18D0269F00295598 /* JMSPhotoDetailViewController.m in Sources */,
 				9350438718BF0DCC00BD5F48 /* JMSCollectionPhotoCell.m in Sources */,
 				9350439018BF0E7B00BD5F48 /* JMSPhotoStore.m in Sources */,
 				939D802218C628BC00D90855 /* JMSSlideUpTransitionAnimator.m in Sources */,
 				939D802518C66E5900D90855 /* JMSSlideDownTransitionAnimator.m in Sources */,
+				9358061E18D02A2A00295598 /* JMSPhotoDetailTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
