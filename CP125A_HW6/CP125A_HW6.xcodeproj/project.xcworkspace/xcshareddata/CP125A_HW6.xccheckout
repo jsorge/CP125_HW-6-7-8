@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>F6B2B0C2-FD8A-402D-A411-3EB04E0EC6CC</string>
+	<string>4E6F74E3-C4D1-4BAC-8D18-950A0C7A030A</string>
 	<key>IDESourceControlProjectName</key>
 	<string>CP125A_HW6</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>0260306C-DBF7-4727-9362-4095F8753441</key>
+		<key>41910B25-9BCD-4E6D-A043-BEF950FAB3FB</key>
 		<string>https://github.com/jsorge/CP125_HW-6-7-8.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>CP125A_HW6/CP125A_HW6.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>0260306C-DBF7-4727-9362-4095F8753441</key>
+		<key>41910B25-9BCD-4E6D-A043-BEF950FAB3FB</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,16 +25,16 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>0260306C-DBF7-4727-9362-4095F8753441</string>
+	<string>41910B25-9BCD-4E6D-A043-BEF950FAB3FB</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>0260306C-DBF7-4727-9362-4095F8753441</string>
+			<string>41910B25-9BCD-4E6D-A043-BEF950FAB3FB</string>
 			<key>IDESourceControlWCCName</key>
-			<string>hw6</string>
+			<string>HW6-Restored</string>
 		</dict>
 	</array>
 </dict>

@@ -22,6 +22,8 @@
 static NSString *const photoCellReuse = @"photoCell";
 static NSString *const addNewPhotoSegue = @"addNewPhoto";
 static NSString *const photoDetailSegue = @"viewPhotoMap";
+NSString *const NOTIFICATION_NUCLEAR = @"nuclearNotificationKey";
+NSString *const NOTIFICATION_ADD_FROM_URL = @"addPhotoFromURLNotificationKey";
 
 @interface JMSPhotoListCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, JMSAddPhotoTVCDelegate, UIViewControllerTransitioningDelegate>
 @property (strong, nonatomic)JMSPhotoStore *photoStore;
@@ -36,6 +38,15 @@ static NSString *const photoDetailSegue = @"viewPhotoMap";
     [super viewDidLoad];
     
     self.hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deleteAllPhotoData)
+                                                 name:NOTIFICATION_NUCLEAR
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(addPhotoFromURLNotification:)
+                                                 name:NOTIFICATION_ADD_FROM_URL
+                                               object:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -193,4 +204,18 @@ static NSString *const photoDetailSegue = @"viewPhotoMap";
     [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 
+- (void)deleteAllPhotoData
+{
+    
+}
+
+- (void)addPhotoFromURLNotification:(NSNotification *)notification
+{
+    NSDictionary *userInfo = notification.userInfo;
+    NSURL *imageURL = userInfo[@"imageURL"];
+    if (imageURL) {
+        UIImage *imageToUse = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
+        [self performSegueWithIdentifier:addNewPhotoSegue sender:imageToUse];
+    }
+}
 @end
