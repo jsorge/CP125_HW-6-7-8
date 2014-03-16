@@ -186,8 +186,6 @@ NSString *const NOTIFICATION_ADD_FROM_URL = @"addPhotoFromURLNotificationKey";
                 }
                 [self.collectionView deleteItemsAtIndexPaths:indexPaths];
             } completion:nil];
-        } else if (buttonIndex == 1) {
-            [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
         }
     }
 }
@@ -244,19 +242,30 @@ NSString *const NOTIFICATION_ADD_FROM_URL = @"addPhotoFromURLNotificationKey";
 - (void)deleteAllPhotoDataNotification
 {
     //TODO: make sure the view on screen when the action sheet shows is the photo list
-    if (self.navigationController.visibleViewController != self) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            [self.nuclearSheet showInView:self.view];
-        }];
-    } else {
+    if (self.navigationController.visibleViewController == self) {
         [self.nuclearSheet showInView:self.view];
+    } else {
+        if ([self.presentedViewController isKindOfClass:[UIImagePickerController class]] || [self.presentedViewController isKindOfClass:[UINavigationController class]]) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self.nuclearSheet showInView:self.view];
+            }];
+        } else {
+            [UIView transitionWithView:self.navigationController.visibleViewController.view
+                              duration:0.75
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^{
+                                [self.navigationController popToRootViewControllerAnimated:YES];
+                            } completion:^(BOOL finished) {
+                                [self.navigationController setViewControllers:@[self]];
+                                [self.nuclearSheet showInView:self.view];
+                            }];
+        }
     }
 }
 
 - (void)addPhotoFromURLNotification:(NSNotification *)notification
 {
-    NSDictionary *userInfo = notification.userInfo;
-    NSURL *imageURL = userInfo[@"imageURL"];
+    NSURL *imageURL = notification.userInfo[@"imageURL"];
     if (imageURL) {
         UIImage *imageToUse = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
         [self performSegueWithIdentifier:addNewPhotoSegue sender:imageToUse];
