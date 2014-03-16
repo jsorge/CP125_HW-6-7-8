@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const NOTIFICATION_NUCLEAR;
+extern NSString *const NOTIFICATION_ADD_FROM_URL;
+
 @interface JMSPhotoListCollectionViewController : UICollectionViewController
 
 @end

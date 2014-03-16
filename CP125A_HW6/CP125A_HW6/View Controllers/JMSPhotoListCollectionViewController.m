@@ -14,6 +14,7 @@
 #import "JMSSlideUpTransitionAnimator.h"
 #import "JMSSlideDownTransitionAnimator.h"
 #import "JMSPhotoMapViewController.h"
+#import "JMSSettingsController.h"
 
 @import MobileCoreServices;
 @import MapKit;
@@ -21,11 +22,15 @@
 static NSString *const photoCellReuse = @"photoCell";
 static NSString *const addNewPhotoSegue = @"addNewPhoto";
 static NSString *const photoDetailSegue = @"viewPhotoMap";
+NSString *const NOTIFICATION_NUCLEAR = @"nuclearNotificationKey";
+NSString *const NOTIFICATION_ADD_FROM_URL = @"addPhotoFromURLNotificationKey";
 
 @interface JMSPhotoListCollectionViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, JMSAddPhotoTVCDelegate, UIViewControllerTransitioningDelegate>
 @property (strong, nonatomic)JMSPhotoStore *photoStore;
 @property (strong, nonatomic)UIImagePickerController *imagePicker;
 @property (nonatomic)BOOL hasCamera;
+@property (strong, nonatomic)UIActionSheet *nuclearSheet;
+@property (strong, nonatomic)UIActionSheet *imagePickerSheet;
 @end
 
 @implementation JMSPhotoListCollectionViewController
@@ -35,6 +40,15 @@ static NSString *const photoDetailSegue = @"viewPhotoMap";
     [super viewDidLoad];
     
     self.hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deleteAllPhotoDataNotification)
+                                                 name:NOTIFICATION_NUCLEAR
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(addPhotoFromURLNotification:)
+                                                 name:NOTIFICATION_ADD_FROM_URL
+                                               object:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -67,25 +81,42 @@ static NSString *const photoDetailSegue = @"viewPhotoMap";
     if (!_imagePicker) {
         _imagePicker = [[UIImagePickerController alloc] init];
         _imagePicker.delegate = self;
-        _imagePicker.allowsEditing = YES;
         _imagePicker.transitioningDelegate = self;
     }
     return _imagePicker;
+}
+
+- (UIActionSheet *)nuclearSheet
+{
+    if (!_nuclearSheet) {
+        _nuclearSheet = [[UIActionSheet alloc] initWithTitle:@"Really delete all photos? This can't be undone"
+                                                    delegate:self
+                                           cancelButtonTitle:@"No"
+                                      destructiveButtonTitle:@"Yes"
+                                           otherButtonTitles:nil];
+    }
+    return _nuclearSheet;
+}
+
+- (UIActionSheet *)imagePickerSheet
+{
+    if (!_imagePickerSheet) {
+        _imagePickerSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                        delegate:self
+                                               cancelButtonTitle:@"Cancel"
+                                          destructiveButtonTitle:nil
+                                               otherButtonTitles:@"Take Photo", @"Use Existing", nil];
+    }
+    return _imagePickerSheet;
 }
 
 #pragma mark - IBActions
 - (IBAction)cameraButtonTapped:(id)sender
 {
     if (self.hasCamera) {
-        UIActionSheet *whichCameraSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                                      delegate:self
-                                                             cancelButtonTitle:@"Cancel"
-                                                        destructiveButtonTitle:nil
-                                                             otherButtonTitles:@"Take Photo", @"Use Existing", nil];
-        [whichCameraSheet showInView:self.view];
+        [self.imagePickerSheet showInView:self.view];
     } else {
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:self.imagePicker animated:YES completion:nil];
+        [self showImagePickerViewWithType:UIImagePickerControllerSourceTypePhotoLibrary];
     }
 }
 
@@ -136,14 +167,27 @@ static NSString *const photoDetailSegue = @"viewPhotoMap";
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        //Camera
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    } else if (buttonIndex == 1) {
-        //Photo Library
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    if (actionSheet == self.imagePickerSheet) {
+        if (buttonIndex == 0) {
+            //Camera
+            [self showImagePickerViewWithType:UIImagePickerControllerSourceTypeCamera];
+        } else if (buttonIndex == 1) {
+            //Photo Library
+            [self showImagePickerViewWithType:UIImagePickerControllerSourceTypePhotoLibrary];
+        }
+    } else if (actionSheet == self.nuclearSheet) {
+        if (buttonIndex == 0) {
+            NSInteger totalPhotos = [[self.photoStore photoArray] count];
+            [self.photoStore deleteAllPhotos];
+            [self.collectionView performBatchUpdates:^{
+                NSMutableArray *indexPaths = [NSMutableArray array];
+                for (NSInteger i = 0; i < totalPhotos; i++) {
+                    [indexPaths addObject:[NSIndexPath indexPathForItem:i inSection:0]];
+                }
+                [self.collectionView deleteItemsAtIndexPaths:indexPaths];
+            } completion:nil];
+        }
     }
-    [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 
 #pragma mark - JMSAddPhotoTVCDelegate
@@ -159,6 +203,10 @@ static NSString *const photoDetailSegue = @"viewPhotoMap";
     MKPlacemark *placemark = controller.placemark;
     NSURL *url = controller.url;
     NSString *phone = controller.phone;
+    
+    if ([JMSSettingsController autosaveToCameraRoll]) {
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    }
     
     JMSPhotoData *newPhoto = [self.photoStore addNewPictureToStoreWithImage:image title:title placemark:placemark url:url phone:phone];
     
@@ -179,4 +227,47 @@ static NSString *const photoDetailSegue = @"viewPhotoMap";
     return [[JMSSlideDownTransitionAnimator alloc] init];
 }
 
+#pragma mark - Private
+- (void)showImagePickerViewWithType:(UIImagePickerControllerSourceType)sourceType
+{
+    if ([JMSSettingsController enableEditMode]) {
+        self.imagePicker.allowsEditing = YES;
+    } else {
+        self.imagePicker.allowsEditing = NO;
+    }
+    self.imagePicker.sourceType = sourceType;
+    [self presentViewController:self.imagePicker animated:YES completion:nil];
+}
+
+- (void)deleteAllPhotoDataNotification
+{
+    if (self.navigationController.visibleViewController == self) {
+        [self.nuclearSheet showInView:self.view];
+    } else {
+        if ([self.presentedViewController isKindOfClass:[UIImagePickerController class]] || [self.presentedViewController isKindOfClass:[UINavigationController class]]) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self.nuclearSheet showInView:self.view];
+            }];
+        } else {
+            [UIView transitionWithView:self.navigationController.visibleViewController.view
+                              duration:0.75
+                               options:UIViewAnimationOptionTransitionCrossDissolve
+                            animations:^{
+                                [self.navigationController popToRootViewControllerAnimated:YES];
+                            } completion:^(BOOL finished) {
+                                [self.navigationController setViewControllers:@[self]];
+                                [self.nuclearSheet showInView:self.view];
+                            }];
+        }
+    }
+}
+
+- (void)addPhotoFromURLNotification:(NSNotification *)notification
+{
+    NSURL *imageURL = notification.userInfo[@"imageURL"];
+    if (imageURL) {
+        UIImage *imageToUse = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
+        [self performSegueWithIdentifier:addNewPhotoSegue sender:imageToUse];
+    }
+}
 @end

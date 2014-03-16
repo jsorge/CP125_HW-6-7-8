@@ -39,6 +39,11 @@
 - (void)deletePhotoAtIndex:(NSInteger)index;
 
 /**
+ *  Deletes all the photos in the photoData array.
+ */
+- (void)deleteAllPhotos;
+
+/**
  *  Saves the current photoArray to disk.
  */
 - (void)save;

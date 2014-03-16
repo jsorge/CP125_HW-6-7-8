@@ -60,6 +60,13 @@ static NSString *const photoArrayKey = @"photoArray";
     [sharedStore save];
 }
 
+- (void)deleteAllPhotos;
+{
+    JMSPhotoStore *sharedStore = [JMSPhotoStore sharedStore];
+    sharedStore.photoArray = [NSMutableArray array];
+    [sharedStore save];
+}
+
 - (void)save
 {
     NSMutableArray *photoArray = [JMSPhotoStore sharedStore].photoArray;
