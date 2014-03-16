@@ -29,6 +29,8 @@ NSString *const NOTIFICATION_ADD_FROM_URL = @"addPhotoFromURLNotificationKey";
 @property (strong, nonatomic)JMSPhotoStore *photoStore;
 @property (strong, nonatomic)UIImagePickerController *imagePicker;
 @property (nonatomic)BOOL hasCamera;
+@property (strong, nonatomic)UIActionSheet *nuclearSheet;
+@property (strong, nonatomic)UIActionSheet *imagePickerSheet;
 @end
 
 @implementation JMSPhotoListCollectionViewController
@@ -40,7 +42,7 @@ NSString *const NOTIFICATION_ADD_FROM_URL = @"addPhotoFromURLNotificationKey";
     self.hasCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(deleteAllPhotoData)
+                                             selector:@selector(deleteAllPhotoDataNotification)
                                                  name:NOTIFICATION_NUCLEAR
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -84,16 +86,35 @@ NSString *const NOTIFICATION_ADD_FROM_URL = @"addPhotoFromURLNotificationKey";
     return _imagePicker;
 }
 
+- (UIActionSheet *)nuclearSheet
+{
+    if (!_nuclearSheet) {
+        _nuclearSheet = [[UIActionSheet alloc] initWithTitle:@"Really delete all photos? This can't be undone"
+                                                    delegate:self
+                                           cancelButtonTitle:@"No"
+                                      destructiveButtonTitle:@"Yes"
+                                           otherButtonTitles:nil];
+    }
+    return _nuclearSheet;
+}
+
+- (UIActionSheet *)imagePickerSheet
+{
+    if (!_imagePickerSheet) {
+        _imagePickerSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                        delegate:self
+                                               cancelButtonTitle:@"Cancel"
+                                          destructiveButtonTitle:nil
+                                               otherButtonTitles:@"Take Photo", @"Use Existing", nil];
+    }
+    return _imagePickerSheet;
+}
+
 #pragma mark - IBActions
 - (IBAction)cameraButtonTapped:(id)sender
 {
     if (self.hasCamera) {
-        UIActionSheet *whichCameraSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                                      delegate:self
-                                                             cancelButtonTitle:@"Cancel"
-                                                        destructiveButtonTitle:nil
-                                                             otherButtonTitles:@"Take Photo", @"Use Existing", nil];
-        [whichCameraSheet showInView:self.view];
+        [self.imagePickerSheet showInView:self.view];
     } else {
         [self showImagePickerViewWithType:UIImagePickerControllerSourceTypePhotoLibrary];
     }
@@ -146,12 +167,28 @@ NSString *const NOTIFICATION_ADD_FROM_URL = @"addPhotoFromURLNotificationKey";
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        //Camera
-        [self showImagePickerViewWithType:UIImagePickerControllerSourceTypeCamera];
-    } else if (buttonIndex == 1) {
-        //Photo Library
-        [self showImagePickerViewWithType:UIImagePickerControllerSourceTypePhotoLibrary];
+    if (actionSheet == self.imagePickerSheet) {
+        if (buttonIndex == 0) {
+            //Camera
+            [self showImagePickerViewWithType:UIImagePickerControllerSourceTypeCamera];
+        } else if (buttonIndex == 1) {
+            //Photo Library
+            [self showImagePickerViewWithType:UIImagePickerControllerSourceTypePhotoLibrary];
+        }
+    } else if (actionSheet == self.nuclearSheet) {
+        if (buttonIndex == 0) {
+            NSInteger totalPhotos = [[self.photoStore photoArray] count];
+            [self.photoStore deleteAllPhotos];
+            [self.collectionView performBatchUpdates:^{
+                NSMutableArray *indexPaths = [NSMutableArray array];
+                for (NSInteger i = 0; i < totalPhotos; i++) {
+                    [indexPaths addObject:[NSIndexPath indexPathForItem:i inSection:0]];
+                }
+                [self.collectionView deleteItemsAtIndexPaths:indexPaths];
+            } completion:nil];
+        } else if (buttonIndex == 1) {
+            [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
+        }
     }
 }
 
@@ -204,9 +241,16 @@ NSString *const NOTIFICATION_ADD_FROM_URL = @"addPhotoFromURLNotificationKey";
     [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 
-- (void)deleteAllPhotoData
+- (void)deleteAllPhotoDataNotification
 {
-    
+    //TODO: make sure the view on screen when the action sheet shows is the photo list
+    if (self.navigationController.visibleViewController != self) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self.nuclearSheet showInView:self.view];
+        }];
+    } else {
+        [self.nuclearSheet showInView:self.view];
+    }
 }
 
 - (void)addPhotoFromURLNotification:(NSNotification *)notification
