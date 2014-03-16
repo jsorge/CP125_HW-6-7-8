@@ -34,7 +34,6 @@ static NSString *const URL_ADD_FROM_URL = @"addFromURL";
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ADD_FROM_URL object:nil userInfo:@{@"imageURL": imageURL}];
         return YES;
     }
-    
     return NO;
 }
 @end

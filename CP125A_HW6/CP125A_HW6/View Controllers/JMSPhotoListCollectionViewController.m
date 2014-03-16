@@ -241,7 +241,6 @@ NSString *const NOTIFICATION_ADD_FROM_URL = @"addPhotoFromURLNotificationKey";
 
 - (void)deleteAllPhotoDataNotification
 {
-    //TODO: make sure the view on screen when the action sheet shows is the photo list
     if (self.navigationController.visibleViewController == self) {
         [self.nuclearSheet showInView:self.view];
     } else {

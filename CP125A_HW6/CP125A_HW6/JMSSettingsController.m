@@ -27,7 +27,6 @@ NSString *const SETTING_ENABLE_EDIT_MODE = @"enableEditMode";
                                      queue:[NSOperationQueue mainQueue]
                                 usingBlock:^(NSNotification *note) {
                                     [[NSUserDefaults standardUserDefaults] synchronize];
-                                    NSLog(@"User Defaults changed to: %@", [NSUserDefaults standardUserDefaults]);
                                 }];
 }
 

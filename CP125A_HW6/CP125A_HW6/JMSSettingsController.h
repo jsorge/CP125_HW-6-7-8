@@ -8,9 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const SETTING_ADD_TO_CAMERA_ROLL;
-extern NSString *const SETTING_ENABLE_EDIT_MODE;
-
 @interface JMSSettingsController : NSObject
 #pragma mark - API
 + (void)registerStandardDefaults;
