@@ -267,7 +267,16 @@ NSString *const NOTIFICATION_ADD_FROM_URL = @"addPhotoFromURLNotificationKey";
     NSURL *imageURL = notification.userInfo[@"imageURL"];
     if (imageURL) {
         UIImage *imageToUse = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
-        [self performSegueWithIdentifier:addNewPhotoSegue sender:imageToUse];
+        if (imageToUse) {
+            [self performSegueWithIdentifier:addNewPhotoSegue sender:imageToUse];
+        } else {
+            UIAlertView *noImageAlert = [[UIAlertView alloc] initWithTitle:nil
+                                                                   message:@"The link provided does not lead to a valid image."
+                                                                  delegate:nil
+                                                         cancelButtonTitle:@"Ok"
+                                                         otherButtonTitles:nil];
+            [noImageAlert show];
+        }
     }
 }
 @end
