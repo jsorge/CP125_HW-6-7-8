@@ -241,12 +241,39 @@ NSString *const NOTIFICATION_ADD_FROM_URL = @"addPhotoFromURLNotificationKey";
 
 - (void)deleteAllPhotoDataNotification
 {
-    if (self.navigationController.visibleViewController == self) {
+    [self bringSelfToMainViewWithCompletion:^{
         [self.nuclearSheet showInView:self.view];
+    }];
+}
+
+- (void)addPhotoFromURLNotification:(NSNotification *)notification
+{
+    [self bringSelfToMainViewWithCompletion:^{
+        NSURL *imageURL = notification.userInfo[@"imageURL"];
+        if (imageURL) {
+            UIImage *imageToUse = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
+            if (imageToUse) {
+                [self performSegueWithIdentifier:addNewPhotoSegue sender:imageToUse];
+            } else {
+                UIAlertView *noImageAlert = [[UIAlertView alloc] initWithTitle:nil
+                                                                       message:@"The link provided does not lead to a valid image."
+                                                                      delegate:nil
+                                                             cancelButtonTitle:@"Ok"
+                                                             otherButtonTitles:nil];
+                [noImageAlert show];
+            }
+        }
+    }];
+}
+
+- (void)bringSelfToMainViewWithCompletion:(void(^)())completion
+{
+    if (self.navigationController.visibleViewController == self) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:completion];
     } else {
         if ([self.presentedViewController isKindOfClass:[UIImagePickerController class]] || [self.presentedViewController isKindOfClass:[UINavigationController class]]) {
             [self dismissViewControllerAnimated:YES completion:^{
-                [self.nuclearSheet showInView:self.view];
+                [[NSOperationQueue mainQueue] addOperationWithBlock:completion];
             }];
         } else {
             [UIView transitionWithView:self.navigationController.visibleViewController.view
@@ -256,26 +283,8 @@ NSString *const NOTIFICATION_ADD_FROM_URL = @"addPhotoFromURLNotificationKey";
                                 [self.navigationController popToRootViewControllerAnimated:YES];
                             } completion:^(BOOL finished) {
                                 [self.navigationController setViewControllers:@[self]];
-                                [self.nuclearSheet showInView:self.view];
+                                [[NSOperationQueue mainQueue] addOperationWithBlock:completion];
                             }];
-        }
-    }
-}
-
-- (void)addPhotoFromURLNotification:(NSNotification *)notification
-{
-    NSURL *imageURL = notification.userInfo[@"imageURL"];
-    if (imageURL) {
-        UIImage *imageToUse = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
-        if (imageToUse) {
-            [self performSegueWithIdentifier:addNewPhotoSegue sender:imageToUse];
-        } else {
-            UIAlertView *noImageAlert = [[UIAlertView alloc] initWithTitle:nil
-                                                                   message:@"The link provided does not lead to a valid image."
-                                                                  delegate:nil
-                                                         cancelButtonTitle:@"Ok"
-                                                         otherButtonTitles:nil];
-            [noImageAlert show];
         }
     }
 }
