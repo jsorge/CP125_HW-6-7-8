@@ -26,10 +26,10 @@ static NSString *const URL_ADD_FROM_URL = @"addFromURL";
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
-    if ([components.host isEqualToString:URL_NUCLEAR]) {
+    if ([components.host isEqualToString:[URL_NUCLEAR lowercaseString]]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_NUCLEAR object:nil];
         return YES;
-    } else if ([components.host isEqualToString:URL_ADD_FROM_URL]) {
+    } else if ([components.host isEqualToString:[URL_ADD_FROM_URL lowercaseString]]) {
         NSURL *imageURL = [NSURL URLWithString:components.query];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ADD_FROM_URL object:nil userInfo:@{@"imageURL": imageURL}];
         return YES;
